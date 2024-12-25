@@ -1,4 +1,4 @@
-"""api URL Configuration
+"""easy_study URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -14,9 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+import easy_study.views as es_v
+import users.views as users_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('example.urls')),
+    path('jatmanis1', es_v.jatmanis1, name= 'jatmanis1'),
+    path('signup', users_views.register ),
+    path('login', users_views.login1 ),
+    path('admin_1', es_v.admin ),
 ]
