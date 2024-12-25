@@ -1,7 +1,6 @@
 import requests
 from django.shortcuts import render , HttpResponse, HttpResponseRedirect
-from bs4 import BeautifulSoup
-import time
+
 from users import models
 # from api import active_companies_dict
 #from autoslug import AutoSlugField
