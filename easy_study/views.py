@@ -29,7 +29,7 @@ def admin(request):
 
 def notes(request):
     file_id = '1pTXenILTh_IzlNIWc7qHKF62kk0VsfSc'
-    embed_url = f'https://docs.google.com/document/d/{file_id}/preview'
+    embed_url = f'https://docs.google.com/document/d/{file_id}/preview?usp=embed_google&quality=high'
     return render(request, 'notes.html', {'embed_url': embed_url})
 
 
