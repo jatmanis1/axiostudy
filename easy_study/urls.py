@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 import easy_study.views as es_v
 import users.views as users_views
-import easy_study.scrap1 as sc1
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +25,5 @@ urlpatterns = [
     path('login', users_views.login1 ),
     path('admin_1', es_v.admin ),
     path('notes', es_v.notes ),
-    path('documents/<str:file_id>/', es_v.stream_gdrive_document, name='stream_gdrive_document'),
+    # path('documents/<str:file_id>/', es_v.stream_gdrive_document, name='stream_gdrive_document'),
 ]
