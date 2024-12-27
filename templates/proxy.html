@@ -1,0 +1,47 @@
+
+
+<div id="scrollableLink" style="
+    width: 300px;
+    height: 200px;
+    overflow: auto; /* Enable scrolling */
+    pointer-events: auto; /* Allow scrolling */
+    position: relative; 
+    border: 1px solid #ccc;
+">
+    <!-- Content with an <a> tag inside -->
+    <a href="https://example.com" id="disabledLink" style="
+        pointer-events: none; /* Disable clicks */
+        text-decoration: none;
+        color: gray;
+    ">
+        This is a link that cannot be clicked, but the content is scrollable. Scroll to explore.
+    </a>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ipsum nec purus cursus blandit...</p>
+    <p>More content...</p>
+    <p>More content...</p>
+</div>
+
+<script>
+    // Optionally, disable click events explicitly using JavaScript
+    document.getElementById("scrollableLink").addEventListener("click", function (event) {
+        event.preventDefault(); // Disable any click behavior
+    });
+</script>
+
+
+
+<a href="https://drive.google.com/file/d/12wiwPUaugeMuZBQTteRsXaxeeo3ElKrq/preview" id="scrollableLink" 
+style="
+    display: block;
+    width: 300px;
+    height: 200px;
+    overflow-y: scroll; /* Enable scrolling vertically */
+    text-decoration: none;
+    color: gray;
+    pointer-events: none; /* Disable clicking */
+">
+    <p>This is scrollable text inside a link element, but you can't click the link.</p>
+    <p>More content here...</p>
+    <p>Scroll to explore more...</p>
+</a>
+

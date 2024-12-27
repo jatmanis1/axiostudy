@@ -1,7 +1,8 @@
 import requests
 from django.shortcuts import render , HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User
-
+import logging
 from users import models
 # from api import active_companies_dict
 #from autoslug import AutoSlugField
@@ -25,3 +26,31 @@ def admin(request):
     data['cust']= cust
     print(data)
     return render(request, 'admin.html', data)
+
+def notes(request):
+    file_id ='10_-VbJ5y5xETYbJP7AOWughF5befsbpeYAkLaC75WjI'
+    # Replace with the document's actual file ID
+    embed_url = f"https://drive.google.com/file/d/{file_id}/preview"
+    return render(request, 'notes.html', {'embed_url': embed_url})
+
+
+
+def stream_gdrive_document(request, file_id):
+    # Google Drive direct download URL
+    gdrive_url = f"https://docs.google.com/document/d/1whr3L1Y8pcNbpJhbtrptlH0hmpo3IG3QyAVhp4Rfroo/preview"
+    # https://docs.google.com/document/d/1whr3L1Y8pcNbpJhbtrptlH0hmpo3IG3QyAVhp4Rfroo/edit?usp=sharing
+    print(gdrive_url)
+    
+    # Fetch the file from Google Drive
+    response = requests.get(gdrive_url, stream=True)
+    print(response)
+    # Check if the file exists
+    if response.status_code == 200:
+        # Stream the content to the user
+        content_type = response.headers.get('Content-Type', 'application/pdf')  # Adjust if needed
+        return HttpResponse(response.content, content_type=content_type)
+    
+    # Return an error if the file is not found
+    return HttpResponse("File not found", status=404)
+
+
