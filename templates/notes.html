@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, user-scalable=no">
     <title>Dynamic Overlay Content</title>
     <style>
         body {
@@ -19,35 +19,36 @@
             position: relative;
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         iframe {
-            width: 100%;
-            height: 100%;
+            width: 100%; /* Responsive to container width */
+            height: 100%; /* Responsive to container height */
             border: none;
         }
         .overlay-blocker {
             position: absolute;
             top: 0;
             left: 0;
-            max-width: 100%; /* Adjust based on content */
-            max-height: 100%; /* Adjust based on content */
-            background-color: rgba(0, 0, 0, 1); /* Semi-transparent overlay */
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent overlay */
             z-index: 10;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding-top:1rem;
             font-family: Arial, sans-serif;
             font-size: 1rem;
             color: white;
             pointer-events: auto; /* Allows overlay to block interactions */
-            
         }
         .overlay-content {
-            width: 100vw; /* Adjust to fit content width */
-            height: max-content; /* Adjust to fit content height */
+            width: auto; /* Dynamic width based on content */
             text-align: center;
+            padding: 1rem;
         }
         button {
             margin-top: 1rem;
@@ -70,11 +71,12 @@
         <div class="overlay-blocker">
             <div class="overlay-content">
                 <p>This is dynamic content inside the overlay.</p>
+                <button onclick="closeOverlay()">Close Overlay</button>
             </div>
         </div>
 
         <!-- Iframe -->
-        <iframe src='https://docs.google.com/document/d/1pTXenILTh_IzlNIWc7qHKF62kk0VsfSc/' ></iframe>
+        <iframe id="pdfFrame" src="https://docs.google.com/document/d/1pTXenILTh_IzlNIWc7qHKF62kk0VsfSc/preview"></iframe>
     </div>
 
     <script>
@@ -83,6 +85,11 @@
             const overlay = document.querySelector('.overlay-blocker');
             overlay.style.display = 'none'; // Hide the overlay
         }
+
+        // Adjust iframe scaling dynamically
+        const iframe = document.getElementById('pdfFrame');
+        iframe.style.transform = 'scale(1)';
+        iframe.style.transformOrigin = 'top left';
     </script>
 </body>
 </html>
