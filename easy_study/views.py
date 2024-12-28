@@ -36,13 +36,13 @@ import requests
 from django.http import HttpResponse
 
 def proxy_pdf(request):
-    pdf_url = 'https://p-def6.pcloud.com/DLZfQM0KGZWajDmS7ZlduM7ZZc8whXkZ1ZZcu8ZZsjEJZI4ZjYZqpZJPf0Lt7KNdBcBFHjcbniXprzgsgy/Week_1.pdf'
-    response = requests.get(pdf_url, stream=True)
-    if response.status_code == 200:
-        return HttpResponse(response.content, content_type='application/pdf')
-    else:
-        return HttpResponse('Failed to fetch PDF', status=response.status_code)
-
+    # pdf_url = 'https://p-def6.pcloud.com/DLZfQM0KGZWajDmS7ZlduM7ZZc8whXkZ1ZZcu8ZZsjEJZI4ZjYZqpZJPf0Lt7KNdBcBFHjcbniXprzgsgy/Week_1.pdf'
+    # response = requests.get(pdf_url, stream=True)
+    # if response.status_code == 200:
+    #     return HttpResponse(response.content, content_type='application/pdf')
+    # else:
+    #     return HttpResponse('Failed to fetch PDF', status=response.status_code)
+    return render(request, 'test3.html')
 
 # def stream_gdrive_document(request, file_id):
 #     # Google Drive direct download URL

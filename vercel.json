@@ -10,6 +10,25 @@
     {
       "src": "/(.*)",
       "dest": "easy_study/wsgi.py"
+    },
+    {
+      "src": "/api/pdf",
+      "dest": "/api/pdf.js"  
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/pdf",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        }
+      ]
     }
   ]
 }
