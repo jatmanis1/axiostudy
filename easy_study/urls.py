@@ -25,5 +25,6 @@ urlpatterns = [
     path('login', users_views.login1 ),
     path('admin_1', es_v.admin ),
     path('notes', es_v.notes ),
+    path('pdf', es_v.proxy_pdf)
     # path('documents/<str:file_id>/', es_v.stream_gdrive_document, name='stream_gdrive_document'),
 ]

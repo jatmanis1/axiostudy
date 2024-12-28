@@ -32,6 +32,16 @@ def notes(request):
     embed_url = f'https://docs.google.com/document/d/{file_id}/preview?usp=embed_google&quality=high'
     return render(request, 'test2.html', {'embed_url': embed_url})
 
+import requests
+from django.http import HttpResponse
+
+def proxy_pdf(request):
+    pdf_url = 'https://p-def6.pcloud.com/DLZfQM0KGZWajDmS7ZlduM7ZZc8whXkZ1ZZcu8ZZsjEJZI4ZjYZqpZJPf0Lt7KNdBcBFHjcbniXprzgsgy/Week_1.pdf'
+    response = requests.get(pdf_url, stream=True)
+    if response.status_code == 200:
+        return HttpResponse(response.content, content_type='application/pdf')
+    else:
+        return HttpResponse('Failed to fetch PDF', status=response.status_code)
 
 
 # def stream_gdrive_document(request, file_id):
