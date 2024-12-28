@@ -1,47 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay Blocking Iframe</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .iframe-container {
+            position: relative;
+            width: 80%;
+            height: 80%;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .overlay-blocker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 10; /* Ensure it sits above the iframe */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-container">
+        <!-- Overlay to block iframe interactions -->
+        <div class="overlay-blocker" id="overlayBlocker">
+            <p>Overlay Active - Interactions Blocked</p>
+        </div>
 
+        <!-- Iframe -->
+        <iframe src="https://docs.google.com/document/d/1zk6JtzjR2FUJSXeCPfPYKgTxXIfRtiEsBJCC-3nJPvI"></iframe>
+    </div>
 
-<div id="scrollableLink" style="
-    width: 300px;
-    height: 200px;
-    overflow: auto; /* Enable scrolling */
-    pointer-events: auto; /* Allow scrolling */
-    position: relative; 
-    border: 1px solid #ccc;
-">
-    <!-- Content with an <a> tag inside -->
-    <a href="https://example.com" id="disabledLink" style="
-        pointer-events: none; /* Disable clicks */
-        text-decoration: none;
-        color: gray;
-    ">
-        This is a link that cannot be clicked, but the content is scrollable. Scroll to explore.
-    </a>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ipsum nec purus cursus blandit...</p>
-    <p>More content...</p>
-    <p>More content...</p>
-</div>
+    <script>
+        // Example: Remove the overlay after 5 seconds
+        setTimeout(() => {
+            const overlay = document.getElementById('overlayBlocker');
+            if (overlay) {
+                overlay.style.display = 'none'; // Hides the overlay
+            }
+        }, 50000); // 5 seconds
+    </script>
+</body>
+</html>
 
-<script>
-    // Optionally, disable click events explicitly using JavaScript
-    document.getElementById("scrollableLink").addEventListener("click", function (event) {
-        event.preventDefault(); // Disable any click behavior
-    });
-</script>
-
-
-
-<a href="https://drive.google.com/file/d/12wiwPUaugeMuZBQTteRsXaxeeo3ElKrq/preview" id="scrollableLink" 
-style="
-    display: block;
-    width: 300px;
-    height: 200px;
-    overflow-y: scroll; /* Enable scrolling vertically */
-    text-decoration: none;
-    color: gray;
-    pointer-events: none; /* Disable clicking */
-">
-    <p>This is scrollable text inside a link element, but you can't click the link.</p>
-    <p>More content here...</p>
-    <p>Scroll to explore more...</p>
-</a>
-
+        <!-- Iframe
+        <iframe src="https://docs.google.com/document/d/1zk6JtzjR2FUJSXeCPfPYKgTxXIfRtiEsBJCC-3nJPvI"></iframe>
+    </div>
+</body>
+</html> -->
