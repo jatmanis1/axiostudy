@@ -1,0 +1,9 @@
+<form method="post">
+    {% csrf_token %}
+    <input name="name"  placeholder="name">
+    <input name="desc"  placeholder="desc">
+    {% comment %} <input style="display: none;" name="c_id" value="{{ request.GET.c_id }}"> {% endcomment %}
+    <button type="submit">Create New Part</button>
+</form>
+
+{{course.c_name}}

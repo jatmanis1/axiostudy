@@ -1,0 +1,9 @@
+<form method="post">
+    {% csrf_token %}
+    <input name="name" value='{{course.c_name}}' placeholder="name">
+    <input name="desc" value='{{course.c_desc}}' placeholder="desc">
+    <input style="display: none;" name="c_id" value="{{ request.GET.c_id }}">
+    <button type="submit">save </button>
+</form>
+
+{{course.c_name}}

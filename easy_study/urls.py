@@ -25,6 +25,13 @@ urlpatterns = [
     path('login', users_views.login1 ),
     path('admin_1', es_v.admin ),
     path('notes', es_v.notes ),
-    path('pdf', es_v.proxy_pdf)
+    # path('pdf', es_v.proxy_pdf),
+    path('admin_course', es_v.admin_course),
+    path('admin_course_edit', es_v.admin_course_edit, name='admin_course_edit'),
+    path('admin_course_add', es_v.admin_course_add, name='admin_course_add'),
+    
+    path('admin_part', es_v.admin_part),
+    path('admin_part_edit', es_v.admin_part_edit, name='admin_part_edit'),
+    path('admin_part_add', es_v.admin_part_add, name='admin_part_add'),
     # path('documents/<str:file_id>/', es_v.stream_gdrive_document, name='stream_gdrive_document'),
 ]

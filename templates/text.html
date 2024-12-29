@@ -1,88 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Overlay Content</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #f0f0f0;
-        }
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .overlay-blocker {
-            position: absolute;
-            top: 0;
-            left: 0;
-            max-width: 100%; /* Adjust based on content */
-            max-height: 100%; /* Adjust based on content */
-            background-color: rgba(0, 0, 0, 1); /* Semi-transparent overlay */
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding-top:1rem;
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
-            color: white;
-            pointer-events: auto; /* Allows overlay to block interactions */
-            
-        }
-        .overlay-content {
-            width: 100vw; /* Adjust to fit content width */
-            height: max-content; /* Adjust to fit content height */
-            text-align: center;
-        }
-        button {
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="iframe-container">
-        <!-- Overlay to block iframe interactions -->
-        <div class="overlay-blocker">
-            <div class="overlay-content">
-                <p>This is dynamic content inside the overlay.</p>
-            </div>
-        </div>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PDF Viewer</title>
+    </head>
+    <body>
+        <h1>PDF Viewer</h1>
+        <iframe
+                
+            src="https://jatmanis1.github.io/notes/tesst-converted.html"
+            style="width: 100%; height: 100vh; border: none;">
+        </iframe>
+    </body>
+    </html>
+    
 
-        <!-- Iframe -->
-        <iframe src='https://docs.google.com/document/d/1zk6JtzjR2FUJSXeCPfPYKgTxXIfRtiEsBJCC-3nJPvI/' ></iframe>
-    </div>
-
-    <script>
-        // Function to close the overlay
-        function closeOverlay() {
-            const overlay = document.querySelector('.overlay-blocker');
-            overlay.style.display = 'none'; // Hide the overlay
-        }
-    </script>
-</body>
-</html>

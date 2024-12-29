@@ -1,0 +1,10 @@
+<form method="get" >
+    {% csrf_token %}
+    <label for="course_select">Select a Part:</label>
+    <select id="course_select" name="p_id" class="form_select">
+        {% for part in parts %}
+            <option value="{{ part.id }}">{{ part.p_name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Submit</button>
+</form>

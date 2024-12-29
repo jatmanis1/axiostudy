@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    # for gdrive
+    # 'api_integration',
     # for photos
     # 'whitenoise.runserver_nostatic',
 ]
