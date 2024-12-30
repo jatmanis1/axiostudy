@@ -1,0 +1,29 @@
+<form method="post">
+    {% csrf_token %}
+    <input name="name"  placeholder="name">
+    <input name="desc"  placeholder="desc">
+    <input name="u_link"  placeholder="link">
+    <input name="owner"  placeholder="owner of documents">
+    <label for="course_select">Select Course:</label>
+    <select id="course_select" name="u_course" class="form_select">
+        {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.c_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="course_select">Select a Part:</label>
+    <select id="course_select" name="u_part" class="form_select">
+        {% for part in parts %}
+            <option value="{{ part.id }}">{{ part.p_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="course_select">Select Subject:</label>
+    <select id="course_select" name="u_subject" class="form_select">
+        {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.s_name }}</option>
+        {% endfor %}
+    </select>
+    {% comment %} <input style="display: none;" name="c_id" value="{{ request.GET.c_id }}"> {% endcomment %}
+    <button type="submit">Create New unit</button>
+</form>
+
+{{course.s_name}}

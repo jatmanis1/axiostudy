@@ -1,0 +1,64 @@
+<form method="get" >
+    {% csrf_token %}
+    <label for="course_select">Select a Subject:</label>
+    <select id="course_select" name="s_id" class="form_select">
+        {% for subject in units %}
+            <option value="{{ subject.id }}">{{ subject.u_name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Submit</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                S No.
+            </th>
+            <th>
+                Subject
+            </th>
+            <th>
+                desc
+            </th>
+            <th>
+                S No.
+            </th>
+            <th>
+                S No.
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in units %}
+        <tr>
+            <td>
+                {{loop.counter}}
+            </td>
+            <td>
+                {{i.u_name}}
+            </td>
+            <td>
+                {{i.u_desc}}
+            </td>
+            <td>
+                {{i.u_link}}
+            </td>
+            <td>
+                {{i.u_owner}}
+            </td>
+            <td>
+                {{i.u_subject}}
+            </td>
+            <td>
+                {{i.u_course}}
+            </td>
+            <td>
+                {{i.u_part}}
+            </td>
+            
+        </tr>
+        {%  endfor %}
+    </tbody>
+</table>

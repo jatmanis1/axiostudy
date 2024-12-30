@@ -1,0 +1,12 @@
+{% if flag %}
+ Subject Not Found
+ {% else %}
+<form method="post">
+    {% csrf_token %}
+    <input name="name" value='{{subject.s_name}}' placeholder="name">
+    <input name="desc" value='{{subject.s_desc}}' placeholder="desc">
+    <input style="display: none;" name="s_id" value="{{ request.GET.s_id }}">
+    <button type="submit">save </button>
+</form>
+{% endif %}
+{{course.s_name}}

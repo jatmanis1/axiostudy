@@ -1,3 +1,6 @@
+{% if flag %}
+ Part NOt Found
+ {% else %}
 <form method="post">
     {% csrf_token %}
     <input name="name" value='{{part.p_name}}' placeholder="name">
@@ -5,5 +8,5 @@
     <input style="display: none;" name="c_id" value="{{ request.GET.p_id }}">
     <button type="submit">save </button>
 </form>
-
+{% endif %}
 {{part.p_name}}
