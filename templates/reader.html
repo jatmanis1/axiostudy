@@ -1,8 +1,37 @@
-{{unit.0.u_link}}
-jjjjjjjj
-<iframe 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive iFrame</title>
+  <style>
+    /* Ensure the iframe fills the entire screen */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    iframe {
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      border: none; /* Remove iframe border */
+    }
+  </style>
+</head>
+<body>
+  <!-- Replace the src URL with your desired content -->
+    <iframe     
+        src="{{unit.0.u_link}}"
+        title="{{unit.0.u_name}}">
+    </iframe>
+</body>
+</html>
+
+<!-- <iframe 
     {% comment %} src='https://docs.google.com/document/d/1zk6JtzjR2FUJSXeCPfPYKgTxXIfRtiEsBJCC-3nJPvI/preview' {% endcomment %}
     src="{{unit.0.u_link}}"
     width="1200" 
     height="600">
-</iframe>
+</iframe> -->
