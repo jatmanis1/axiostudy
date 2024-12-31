@@ -26,7 +26,12 @@ def jatmanis1(request):
 def notes(request):
     file_id = '1pTXenILTh_IzlNIWc7qHKF62kk0VsfSc'
     embed_url = f'https://docs.google.com/document/d/{file_id}/preview?usp=embed_google&quality=high'
-    return render(request, 'test2.html', {'embed_url': embed_url})
+    units = Unit.objects.all()
+    for i in units:
+        i.course = Course.objects.get(id = i.u_course)
+        i.part = Part.objects.get(id = i.u_part)
+        i.subject = Subject.objects.get(id = i.u_subject)
+    return render(request, 'notes.html', {'units':units})
 
 
 def reader(request,u_id):

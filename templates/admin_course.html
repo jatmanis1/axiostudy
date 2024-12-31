@@ -1,14 +1,16 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<form method="get" >
+<div class="container">
+<form class="form1" method="get" >
     {% csrf_token %}
     <label for="course_select">Select a Course:</label>
-    <select id="course_select" name="c_id" class="form_select">
+    <select class="input-box"  id="course_select" name="c_id" class="form_select">
         {% for course in courses %}
             <option value="{{ course.id }}">{{ course.c_name }}</option>
         {% endfor %}
     </select>
-    <button type="submit">Submit</button>
+    <button class="input-box"  type="submit">Submit</button>
 </form>
+</div>
 {% endblock %}
