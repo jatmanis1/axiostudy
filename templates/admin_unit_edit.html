@@ -1,12 +1,38 @@
+{% extends 'home.html' %}
+
+{% block content %}
 {% if flag %}
- Subject Not Found
+unit Not Found
  {% else %}
-<form method="post">
+<div class='container'>
+<form class='form1' method="post">
     {% csrf_token %}
-    <input name="name" value='{{subject.s_name}}' placeholder="name">
-    <input name="desc" value='{{subject.s_desc}}' placeholder="desc">
-    <input style="display: none;" name="s_id" value="{{ request.GET.s_id }}">
-    <button type="submit">save </button>
+    <input class="input-box" style="display: none;" name="s_id" value="{{ request.GET.u_id }}">
+    <input class="input-box" name="name" value='{{unit.u_name}}'  placeholder="name">
+    <input  class="input-box" name="desc" value='{{unit.u_desc}}'  placeholder="desc">
+    <input class="input-box" name="u_link" value='{{unit.u_link}}' placeholder="link">
+    <input class="input-box" name="owner" value='{{unit.u_owner}}' placeholder="owner of documents">
+    <label for="course_select">Select Course:</label>
+    <select class="input-box" id="course_select" name="u_course" class="form_select">
+        {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.c_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="course_select">Select a Part:</label>
+    <select class="input-box" id="course_select" name="u_part" class="form_select">
+        {% for part in parts %}
+            <option value="{{ part.id }}">{{ part.p_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="course_select">Select Subject:</label>
+    <select class="input-box" id="course_select" name="u_subject" class="form_select">
+        {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.s_name }}</option>
+        {% endfor %}
+    </select>
+    <button class="input-box, " type="submit">save </button>
 </form>
+</div>
 {% endif %}
-{{course.s_name}}
+{{unit.u_name}}
+{% endblock %}

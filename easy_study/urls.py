@@ -44,7 +44,7 @@ urlpatterns = [
     
     # unit
     path('admin_unit', es_a.admin_unit),
-    path('admin_unit_edit/<int:u_id>/', es_a.admin_unit_edit, name='admin_subject_edit'),
-    path('admin_unit_add', es_a.admin_unit_add, name='admin_subject_add'),
+    path('admin_unit_edit/<int:u_id>/', es_a.admin_unit_edit, name='admin_unit_edit'),
+    path('admin_unit_add', es_a.admin_unit_add, name='admin_unit_add'),
     # path('documents/<str:file_id>/', es_v.stream_gdrive_document, name='stream_gdrive_document'),
 ]

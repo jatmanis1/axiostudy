@@ -9,6 +9,15 @@ from django.urls import reverse
 # from api import active_companies_dict
 #from autoslug import AutoSlugField
 
+def admin(request):
+    cust = models.Cust.objects.all()
+    data = {}
+    data['cust']= cust
+    print(data)
+    return render(request, 'admin.html', data)
+
+
+
 def admin_course_edit(request):
     c_id = request.GET.get('c_id')
     print(c_id,'cidwww')
@@ -54,12 +63,6 @@ def admin_course(request):
     # print(data)
     return render(request, 'admin_course.html', data)
 
-def admin(request):
-    cust = models.Cust.objects.all()
-    data = {}
-    data['cust']= cust
-    print(data)
-    return render(request, 'admin.html', data)
 
 # Part
 def admin_part_edit(request,p_id):
@@ -195,7 +198,12 @@ def admin_unit_edit(request,u_id):
     data ={}
     data['unit']=unit
     data['flag']=flag
-    
+    subjects = Subject.objects.all()
+    parts = Part.objects.all()
+    courses = Course.objects.all()
+    data['subjects']= subjects
+    data['parts']= parts
+    data['courses']= courses
     print(data)
     return render(request, 'admin_unit_edit.html',data)
 def admin_unit_add(request):

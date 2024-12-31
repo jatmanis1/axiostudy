@@ -1,7 +1,30 @@
-{% load static %}
-<h1> admin </h1>  
-kkkkkk {{cust}}
-{% for i in cust %}
-hhhh
-{{i}}
-{% endfor %}
+{% extends 'home.html' %}
+
+{% block content %}
+
+<div class="container1">
+<div  onclick="window.location.href='/admin_subject'" class="service-box">
+    <div class="service-icon">icon</div>
+    <div class="service-title"><b style="color: rgb(201, 45, 34);">Subjects</b></div>
+</div>
+
+<div  onclick="window.location.href='/admin_unit'" class="service-box">
+    <div class="service-icon">unit</div>
+    <div class="service-title"><b style="color: rgb(201, 45, 34);">Units</b></div> 
+</div>
+
+<div  onclick="window.location.href='/admin_course'" class="service-box">
+    <div class="service-icon">Course</div>
+    <div class="service-title"><b style="color: rgb(201, 45, 34);">Course</b></div>
+</div>
+
+<!-- <div  onclick="window.location.href='/service_page/{{service.service_id}}'" class="service-box">
+    <div class="service-icon">icon</div>
+    <div class="service-title"><b style="color: rgb(201, 45, 34);">{{service.service_name}}</b></div>
+    <div class="service-desc"><b style="color: rgb(45, 119, 115);">{{service.service_desc}}</b></div>
+    <div class="service-desc">  <b style="color: rgb(188, 27, 209);">₹ {{service.service_b_price}}</b></div>
+    <div class="service-desc"><a style="color: rgb(0, 0, 0);">Needs <b style="color: rgb(255, 255, 255);">{{service.time_required}} h </b>complete</a></div>
+    
+</div> -->
+</div>
+    {% endblock %}
