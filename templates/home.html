@@ -16,7 +16,11 @@
             padding: 10px;
             width: 100%;
         }
-        
+        .panel {
+            margin-left: 10%;
+            margin-right: 10%;
+            background: red;
+        }        
 .service-box {
     background-color: #dfd2d2;
     border-radius: 10px;
@@ -96,7 +100,10 @@ tr:hover {
     }
 
 td, th {
-        border-radius: 5px;
+        border-radius:5px solid black ;
+        white-space: nowrap; /* Prevent content from wrapping */
+        text-overflow: ellipsis; /* Add "..." to long text */
+        overflow: hidden; /* Hide overflowed content */
     }
     .form1 {
         width: 100%;
@@ -106,7 +113,6 @@ td, th {
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1); 
     }
-    
     
 .form-group {
         margin-bottom: 15px;
