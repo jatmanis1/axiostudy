@@ -217,8 +217,10 @@ def admin_unit_add(request):
     subjects = Subject.objects.all()
     parts = Part.objects.all()
     courses = Course.objects.all()
+    print(u_name, u_desc)
     if u_name:
         Unit.objects.create(u_name=u_name, u_desc=u_desc, u_course=u_course, u_link=u_link,u_part=u_part,u_subject=u_subject,u_owner=owner)
+        print('sdsdsds')
     data={}
     data['subjects']= subjects
     data['parts']= parts
