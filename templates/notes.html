@@ -1,9 +1,18 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<div class="container2">
+<!-- <div class="container2"> -->
+
+    <div class="grid-container">
 {% for unit in units %}
-<div  onclick="window.location.href='/reader/{{unit.id}}'" class="service-box">
+    
+    <div onclick="window.location.href='/reader/{{unit.id}}'" class="card">
+      <h5>{{unit.u_name}}</h5>
+      <small>{{unit.u_desc}}</small><br><br>
+      <small>{{unit.course.c_name}}-{{unit.part.p_name}}     {  {{unit.subject.s_name}} }</small>
+      <!-- <small>{{unit.subject.s_name}}</small> -->
+    </div>
+<!-- <div  onclick="window.location.href='/reader/{{unit.id}}'" class="service-box">
     <div class="service-icon">icon</div>
     <div class="service-title"><b style="color: rgb(201, 45, 34);"> {{unit.u_name}}</b></div>
     <div class="service-desc"><a style="color: rgb(0, 0, 0);">{{unit.u_desc}}<b> </b></div>
@@ -12,7 +21,7 @@
     <div class="service-desc"><b style="color: rgb(188, 27, 209);">class: {{unit.course.c_name}}-{{unit.part.p_name}}</b></div>
     <div class="service-desc"><b style="color: rgb(81, 84, 247);">Subject: {{unit.subject.s_name}}</b></div>
     
-</div>
+</div> -->
 {% endfor Z%}
 </div>
 {% endblock %}
