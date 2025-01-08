@@ -8,6 +8,9 @@ from users.models import Subject, Unit, Course, Part
 from django.urls import reverse
 # from api import active_companies_dict
 #from autoslug import AutoSlugField
+
+def index(request):
+    return render(request, 'index.html')
 def jatmanis1(request):
     custs = models.Cust.objects.all()
     print(custs)

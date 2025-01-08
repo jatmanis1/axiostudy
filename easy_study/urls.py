@@ -22,6 +22,7 @@ import users.views as users_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('jatmanis1', es_v.jatmanis1, name= 'jatmanis1'),
+    path('', es_v.index, name= '/'),
     path('signup', users_views.register ),
     path('login', users_views.login1 ),
     path('admin_1', es_a.admin ),
