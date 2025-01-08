@@ -176,6 +176,52 @@ td, th {
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">EasyNotes</a>
+    
+          <!-- Toggler Button -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <!-- Navbar Links -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+              <!-- Normal Nav Items -->
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Signup</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/notes">notes</a>
+              </li>
+              <!-- Dropdown Menu -->
+              <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Notes
+                </a>
+                <ul class="dropdown-menu panel" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Physics</a></li>
+                  <li><a class="dropdown-item" href="#">Chemistry</a></li>
+                  <li><a class="dropdown-item" href="#">Maths</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">BIOLOGY</a></li>
+                </ul>
+              </li> -->
+    
+              <!-- Contact Link -->
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
     {% block content %}
         {% endblock %}
 </body>
