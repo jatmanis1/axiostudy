@@ -7,26 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Register</h2>
-        {% if messages %}
-        <div class="alert alert-danger">
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-        <form method="POST">
+    <div class="container ">
+        <!-- <div class="mb-3 p-3"> -->
+        
+        <form class="form1" method="POST">
             {% csrf_token %}
-            <div class="row mb-3">
-                <div class="col-md-6">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" value="{{ form.username.value }}">
+                    <input type="text" class="form-control input-box" id="username" name="username" value="{{ form.username.value }}">
                     {% if form.username.errors %}
                         <div class="text-danger">
                             {% for error in form.username.errors %}
@@ -34,8 +23,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                </div>
-                <div class="col-md-6">
+                <!-- </div> -->
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ form.name.value }}">
                     {% if form.name.errors %}
@@ -45,12 +33,10 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                </div>
-            </div>
+                
             
-            <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value }}">
+                <input type="email" class="form-control input-box " id="email" name="email" value="{{ form.email.value }}">
                 {% if form.email.errors %}
                     <div class="text-danger">
                         {% for error in form.email.errors %}
@@ -58,11 +44,9 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
-
-            <div class="mb-3">
+            
                 <label for="mobile" class="form-label">Mobile No.</label>
-                <input type="text" class="form-control" id="mobile" name="mobile" value="{{ form.mobile.value }}">
+                <input type="text" class="form-control input-box " id="mobile" name="mobile" value="{{ form.mobile.value }}">
                 {% if form.mobile.errors %}
                     <div class="text-danger">
                         {% for error in form.mobile.errors %}
@@ -70,11 +54,9 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
-
-            <div class="mb-3">
+            
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" value="{{ form.password.value }}">
+                <input type="password" class="form-control input-box " id="password" name="password" value="{{ form.password.value }}">
                 {% if form.password.errors %}
                     <div class="text-danger">
                         {% for error in form.password.errors %}
@@ -82,11 +64,9 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
-
-            <div class="mb-3">
+            
                 <label for="confirm_password" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                <input type="password" class="form-control input-box " id="confirm_password" name="confirm_password">
                 {% if form.confirm_password.errors %}
                     <div class="text-danger">
                         {% for error in form.confirm_password.errors %}
@@ -94,12 +74,28 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
+            
 
-            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <button type="submit" class="btn btn-primary w-100 input-box ">Register</button>
         </form>
     </div>
-
+    {% if messages %}
+        
+        <div class="container mt-5">
+            <div class="row">
+              <div class="col-12">
+                <!-- Alert Box -->
+                    {% for message in messages %}
+                        <div class="alert alert-primary alert-dismissible alert-danger fade show" role="alert">
+                            <strong>Message:</strong> {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
