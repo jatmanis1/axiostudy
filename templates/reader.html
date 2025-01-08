@@ -1,45 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes </title>
-  <style>
-    /* Ensure the iframe fills the entire screen */
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden; /* Prevent scrolling */
-    }
-    
-    iframe {
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      border: none; /* Remove iframe border */
+{% extends 'home.html' %}
 
-      width: 100%;
-      height: 100%;
-      border: none;
-
-      /* Apply zoom-out effect */
-      transform: scale(1); /* Adjust the scale factor (0.8 = 80% zoom) */
-      transform-origin: 0 0; /* Start scaling from the top-left corner */
-
-      /* To ensure it covers the full viewport after scaling */
-      width: 90%; /* 1 / scale (0.8) = 125% */
-      height: 90%; /* 1 / scale (0.8) = 125% */
-    }
-  </style>
-</head>
-<body>
+{% block content %}
   <!-- Replace the src URL with your desired content -->
     <iframe     
         src="{{unit.0.u_link}}"
         title="{{unit.0.u_name}}">
     </iframe>
-</body>
-</html>
+
+
+    
+
+{% endblock %}
 
 <!-- <iframe 
     {% comment %} src='https://docs.google.com/document/d/1zk6JtzjR2FUJSXeCPfPYKgTxXIfRtiEsBJCC-3nJPvI/preview' {% endcomment %}

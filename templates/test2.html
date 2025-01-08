@@ -1,94 +1,80 @@
-{% extends 'home.html' %}
-
-{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, user-scalable=no">
-    <title>Dynamic Overlay Content</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #f0f0f0;
-        }
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        iframe {
-            width: 100%; /* Responsive to container width */
-            height: 100%; /* Responsive to container height */
-            border: none;
-        }
-        .overlay-blocker {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); 
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
-            color: white;
-            pointer-events: auto; /* Allows overlay to block interactions */
-        }
-        .overlay-content {
-            width: auto; /* Dynamic width based on content */
-            text-align: center;
-            padding: 1rem;
-        }
-        button {
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overlapping Navbar</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Ensure the collapsed menu overlaps content */
+    .navbar-collapse {
+      position: absolute; /* Makes the dropdown overlap */
+      top: 100%; /* Position right below the navbar */
+      left: 0;
+      right: 0;
+      z-index: 1050; /* Higher priority than the content below */
+      background-color: white; /* Match the navbar background */
+    }
+
+    .navbar {
+      position: relative; /* Ensure navbar stays above content */
+      z-index: 1100; /* Higher than the dropdown */
+    }
+  </style>
 </head>
 <body>
-    <div class="iframe-container">
-        <!-- Overlay to block iframe interactions -->
-        <div class="overlay-blocker">
-            <div class="overlay-content">
-                <p>This is dynamic content inside the overlay.</p>
-                <button onclick="closeOverlay()">Close Overlay</button>
-            </div>
-        </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">EasyNotes</a>
 
-        <!-- Iframe displaying Google Docs preview link -->
-        <iframe id="pdfFrame" src="https://p-def6.pcloud.com/DLZfQM0KGZWajDmS7ZlduM7ZZc8whXkZ1ZZcu8ZZsjEJZI4ZjYZqpZJPf0Lt7KNdBcBFHjcbniXprzgsgy/Week_1.pdf?_=1735397958432"></iframe>
+      <!-- Toggler Button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <!-- Normal Nav Items -->
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/notes">Notes</a>
+          </li>
+          <!-- Contact Link -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        // Function to close the overlay
-        function closeOverlay() {
-            const overlay = document.querySelector('.overlay-blocker');
-            overlay.style.display = 'none'; // Hide the overlay
-        }
-    </script>
+  <!-- Content -->
+  <div class="container mt-5">
+    <h1>Welcome to EasyNotes</h1>
+    <p>
+      This is the content below the navbar. The navbar dropdown will overlap
+      this section when toggled on smaller screens.
+    </p>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-{% endblock %}

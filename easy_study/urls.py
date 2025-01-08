@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin_1', es_a.admin ),
     path('notes', es_v.notes ),
     path('reader/<u_id>', es_v.reader ),
+    path('test2', es_v.test2 ),
+    path('test3', es_v.test3 ),
     # path('pdf', es_v.proxy_pdf),
     
     path('admin_course', es_a.admin_course),

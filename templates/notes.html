@@ -2,8 +2,9 @@
 
 {% block content %}
 <!-- <div class="container2"> -->
-
-    <div class="grid-container">
+    
+    
+<div class="grid-container">
 {% for unit in units %}
     
     <div onclick="window.location.href='/reader/{{unit.id}}'" class="card">
@@ -22,6 +23,6 @@
     <div class="service-desc"><b style="color: rgb(81, 84, 247);">Subject: {{unit.subject.s_name}}</b></div>
     
 </div> -->
-{% endfor Z%}
+{% endfor %}
 </div>
 {% endblock %}

@@ -11,6 +11,10 @@ from django.urls import reverse
 
 def index(request):
     return render(request, 'index.html')
+def test2(request):
+    return render(request, 'test2.html')
+def test3(request):
+    return render(request, 'test3.html')
 def jatmanis1(request):
     custs = models.Cust.objects.all()
     print(custs)
