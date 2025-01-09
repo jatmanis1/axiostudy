@@ -1,85 +1,55 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Viewer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        #pdf-container {
-            width: 100%;
-            height: 100vh;
-            overflow: auto;
-            background: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        canvas {
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-            height: auto;
-        }
-        .loading-message {
-            font-size: 18px;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div id="pdf-container">
-        <p class="loading-message">Loading PDF...</p>
+<div class="grid-container">
+    <div class="container mt-5">
+        <!-- Search Box -->
+        <input type="text" id="searchBox" class="form-control mb-4" placeholder="Search by Name or Address..." style="width: 100%;">
+
+        <!-- Units Grid Container -->
+        <div id="unitsContainer" class="grid-container">
+            {% for unit in units %}
+                <div onclick="window.location.href='/reader/{{unit.id}}'" class="card unit" 
+                     data-name="{{unit.u_name}}" data-address="{{unit.u_desc}}">
+                    <h5>{{unit.u_name}}</h5>
+                    <small>{{unit.u_desc}}</small><br><br>
+                    <small>{{unit.course.c_name}} - {{unit.part.p_name}} { {{unit.subject.s_name}} }</small>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+</div>
 
-    <script>
-        // PDF.js worker setup
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+<!-- Include JavaScript for Live Search -->
+<script>
+    document.getElementById('searchBox').addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase(); // Get the search input value
+        const units = document.querySelectorAll('.unit'); // Select all cards with the class "unit"
 
-        // Vercel serverless function URL for proxying the PDF
-        const pdfUrl = 'https://<your-vercel-domain>/api/pdf';
+        units.forEach(unit => {
+            const name = unit.getAttribute('data-name').toLowerCase(); // Get the "data-name" attribute
+            const address = unit.getAttribute('data-address').toLowerCase(); // Get the "data-address" attribute
 
-        // Reference to the container
-        const container = document.getElementById('pdf-container');
-
-        // Load and render the PDF
-        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
-            container.innerHTML = ''; // Clear loading message
-
-            // Loop through all pages
-            for (let i = 1; i <= pdf.numPages; i++) {
-                pdf.getPage(i).then(function(page) {
-                    const scale = window.innerWidth < 768 ? 1 : 1.5; // Adjust for mobile
-                    const viewport = page.getViewport({ scale });
-
-                    // Create canvas element for each page
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    container.appendChild(canvas);
-
-                    // Render the page
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport,
-                    };
-                    page.render(renderContext);
-                });
+            // Check if the search term matches the name or address
+            if (name.includes(searchTerm) || address.includes(searchTerm)) {
+                unit.style.display = 'block'; // Show matching cards
+            } else {
+                unit.style.display = 'none'; // Hide non-matching cards
             }
-        }).catch(function(error) {
-            container.innerHTML = `<p class="loading-message">Error loading PDF: ${error.message}</p>`;
-            console.error(error);
         });
-    </script>
-</body>
-</html>
+    });
+</script>
+
+<style>
+    
+
+    /* Search box styling */
+    #searchBox {
+        margin-bottom: 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+    }
+</style>
 {% endblock %}

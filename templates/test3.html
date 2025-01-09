@@ -1,71 +1,42 @@
-{% extends 'home.html' %}
+<div class="container mt-5">
+    <!-- Include Select2 styles -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+  
+    <!-- Select2 Dropdown -->
+    <select class="form-control" id="searchableDropdown" style="width: 100%;">
+      <option value="" disabled selected>Find Unit</option>
+      {% for i in units %}
+        <option value="{{ i.id }}" data-address="{{ i.u_desc }}">{{ i.u_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  
 
-{% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PDF Viewer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
+<!-- Include jQuery and Select2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Initialize Select2 with a custom matcher function
+    $('#searchableDropdown').select2({
+      placeholder: 'Search by Name or Address...',
+      allowClear: true,
+      matcher: function (params, data) {
+        if ($.trim(params.term) === '') {
+          return data;
         }
-        #pdf-container {
-            width: 100%;
-            height: 100vh;
-            overflow: auto;
-            background: #f9f9f9;
+
+        const searchTerm = params.term.toLowerCase();
+        const text = data.text.toLowerCase(); // Search in "u_name"
+        const address = $(data.element).data('address')?.toLowerCase(); // Search in "u_address"
+
+        if (text.includes(searchTerm) || (address && address.includes(searchTerm))) {
+          return data;
         }
-        canvas {
-            display: block;
-            margin: 10px auto;
-            width: 95%;
-            max-width: 600px;
-        }
-    </style>
-</head>
-<body>
-    <div id="pdf-container">Loading PDF...</div>
-    <script>
-        // Worker configuration for PDF.js
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        // Your PDF URL
-        const pdfUrl = 'https://p-def6.pcloud.com/DLZfQM0KGZWajDmS7ZlduM7ZZc8whXkZ1ZZcu8ZZsjEJZI4ZjYZqpZJPf0Lt7KNdBcBFHjcbniXprzgsgy/Week_1.pdf';
-
-        // Reference to the container
-        const container = document.getElementById('pdf-container');
-
-        // Load the PDF
-        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
-            container.innerHTML = ''; // Clear loading message
-
-            // Render all pages
-            for (let i = 1; i <= pdf.numPages; i++) {
-                pdf.getPage(i).then(function(page) {
-                    const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale for clarity
-
-                    // Create canvas for each page
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    container.appendChild(canvas);
-
-                    // Render PDF page into canvas context
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport,
-                    };
-                    page.render(renderContext);
-                });
-            }
-        }).catch(function(error) {
-            container.innerHTML = `<p>Error loading PDF: ${error.message}</p>`;
-            console.error(error);
-        });
-    </script>
-</body>
-</html>
-{% endblock %}
+        return null; // Exclude if no match
+      }
+    });
+  });
+</script>

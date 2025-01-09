@@ -12,9 +12,14 @@ from django.urls import reverse
 def index(request):
     return render(request, 'index.html')
 def test2(request):
-    return render(request, 'test2.html')
+    courses = Course.objects.all()
+    units = Unit.objects.all()
+    return render(request, 'test2.html', {'courses':courses, 'units':units})
 def test3(request):
-    return render(request, 'test3.html')
+    courses = Course.objects.all()
+    
+    units = Unit.objects.all()
+    return render(request, 'test3.html', {'courses':courses, 'units':units})
 def jatmanis1(request):
     custs = models.Cust.objects.all()
     print(custs)
@@ -31,22 +36,28 @@ def jatmanis1(request):
 
 
 def notes(request):
-    file_id = '1pTXenILTh_IzlNIWc7qHKF62kk0VsfSc'
-    embed_url = f'https://docs.google.com/document/d/{file_id}/preview?usp=embed_google&quality=high'
-    units = Unit.objects.all()
-    for i in units:
-        i.course = Course.objects.get(id = i.u_course)
-        i.part = Part.objects.get(id = i.u_part)
-        i.subject = Subject.objects.get(id = i.u_subject)
-    return render(request, 'notes.html', {'units':units})
+    subject = request.POST.get('subject')
+    data = {}
+    courses = Course.objects.all()
+    subjects = Subject.objects.all()
+    parts = Part.objects.all()
+    subject = 1
+    if subject:
+        units = Unit.objects.all()
+        for i in units:
+            i.course = Course.objects.get(id = i.u_course)
+            i.part = Part.objects.get(id = i.u_part)
+            i.subject = Subject.objects.get(id = i.u_subject)
+        data['units']=units
+    data['courses']= courses
+    data['part']= parts
+    data['subjects']=subjects
+    return render(request, 'notes.html', data)
 
 
 def reader(request,u_id):
     unit = Unit.objects.filter(id = u_id)
     units = Unit.objects.all()
-    print(unit)
-    for i in units:
-        print(i.u_name,i.id)
     data={}
     data['unit']=unit
     data['units']=units
