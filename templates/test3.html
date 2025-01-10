@@ -1,20 +1,40 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+<div id="unitsContainer" class="grid-container container-border">
+
     <!-- Dropdown for Course Filter -->
-    <select id="courseFilter" class="form-control mb-4" style="width: 50%; max-width: 300px;">
-        <option value="all" selected>All Courses</option>
-        {% for course in courses %}
-            <option value="{{ course.c_name|lower }}">{{ course.c_name }}</option>
+     <div class="card1">
+        <select id="courseFilter" class="input-box" >
+            <option value="all" selected>All Courses</option>
+            {% for course in courses %}
+                <option value="{{ course.c_name }}">{{ course.c_name }}</option>
+            {% endfor %}
+        </select>
+     </div>
+     <div class="card1">
+      <select id="partFilter" class="input-box" >
+          <option value="all" selected>All Parts</option>
+          {% for part in parts %}
+              <option value="{{ part.p_name }}">{{ part.p_name }}</option>
+          {% endfor %}
+      </select>
+   </div>
+   <div class="card1">
+    <select id="subjectFilter" class="input-box" >
+        <option value="all" selected>All Subjects</option>
+        {% for subject in subjects %}
+            <option value="{{ subject.s_name }}">{{ subject.s_name }}</option>
         {% endfor %}
     </select>
+ </div>
+    </div>
+     <div class="card1">
 
     <!-- Live Search Input -->
-    <form class="form1" method="post" style="width: 50%; max-width: 300px;">
-        <input type="text" id="searchBox" class="form-control mb-4 input-box" placeholder="Search by Name, Address, Part, or Subject..." style="width: 100%;">
-    </form>
-</div>
+        <input type="text" id="searchBox" class=" input-box" placeholder="Search by Name, Address, Part, or Subject..." style="width: 100%;">
+    
+     </div>
 
 <!-- Units Grid Container -->
 <div id="unitsContainer" class="grid-container">
@@ -34,12 +54,16 @@
 <script>
     const searchBox = document.getElementById('searchBox');
     const courseFilter = document.getElementById('courseFilter');
+    const partFilter = document.getElementById('partFilter');
+    const subjectFilter = document.getElementById('subjectFilter');
     const units = document.querySelectorAll('.unit');
 
     // Function to filter cards
     function filterUnits() {
         const searchTerm = searchBox.value.toLowerCase(); // Get the search input value
         const selectedCourse = courseFilter.value; // Get the selected course value
+        const selectedPart = partFilter.value; // Get the selected part value
+        const selectedSubject = subjectFilter.value; // Get the selected part value
 
         units.forEach(unit => {
             const name = unit.getAttribute('data-name').toLowerCase();
@@ -48,11 +72,13 @@
             const part = unit.getAttribute('data-part').toLowerCase();
             const subject = unit.getAttribute('data-subject').toLowerCase();
 
-            // Check if the unit matches the search term and selected course
-            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || part.includes(searchTerm) || subject.includes(searchTerm);
-            const matchesCourse = selectedCourse === "all" || course === selectedCourse;
+            // Check if the unit matches the search term and selected filters
+            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || subject.includes(searchTerm);
+            const matchesCourse = selectedCourse === "all" || course === selectedCourse.toLowerCase();
+            const matchesPart = selectedPart === "all" || part === selectedPart.toLowerCase();
+            const matchesSubject = selectedSubject === "all" || subject === selectedSubject.toLowerCase();
 
-            if (matchesSearch && matchesCourse) {
+            if (matchesSearch && matchesCourse && matchesPart && matchesSubject) {
                 unit.style.display = 'block'; // Show matching cards
             } else {
                 unit.style.display = 'none'; // Hide non-matching cards
@@ -63,5 +89,7 @@
     // Add event listeners
     searchBox.addEventListener('input', filterUnits);
     courseFilter.addEventListener('change', filterUnits);
+    partFilter.addEventListener('change', filterUnits);
+    subjectFilter.addEventListener('change', filterUnits);
 </script>
 {% endblock %}

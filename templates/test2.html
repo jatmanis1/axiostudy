@@ -5,21 +5,28 @@
 
     <!-- Dropdown for Course Filter -->
      <div class="card1">
-    <select id="courseFilter" class="input-box" >
-        <option value="all" selected>All Courses</option>
-        {% for course in courses %}
-            <option value="{{ course.c_name|lower }}">{{ course.c_name }}</option>
-        {% endfor %}
-    </select>
+        <select id="courseFilter" class="input-box" >
+            <option value="all" selected>All Courses</option>
+            {% for course in courses %}
+                <option value="{{ course.c_name }}">{{ course.c_name }}</option>
+            {% endfor %}
+        </select>
      </div>
-
+     <div class="card1">
+      <select id="partFilter" class="input-box" >
+          <option value="all" selected>All Parts</option>
+          {% for part in parts %}
+              <option value="{{ part.p_name }}">{{ part.p_name }}</option>
+          {% endfor %}
+      </select>
+   </div>
+    </div>
      <div class="card1">
 
     <!-- Live Search Input -->
         <input type="text" id="searchBox" class=" input-box" placeholder="Search by Name, Address, Part, or Subject..." style="width: 100%;">
     
      </div>
-</div>
 
 <!-- Units Grid Container -->
 <div id="unitsContainer" class="grid-container">
@@ -39,12 +46,14 @@
 <script>
     const searchBox = document.getElementById('searchBox');
     const courseFilter = document.getElementById('courseFilter');
+    const partFilter = document.getElementById('partFilter');
     const units = document.querySelectorAll('.unit');
 
     // Function to filter cards
     function filterUnits() {
         const searchTerm = searchBox.value.toLowerCase(); // Get the search input value
         const selectedCourse = courseFilter.value; // Get the selected course value
+        const selectedPart = partFilter.value; // Get the selected course value
 
         units.forEach(unit => {
             const name = unit.getAttribute('data-name').toLowerCase();
@@ -54,10 +63,11 @@
             const subject = unit.getAttribute('data-subject').toLowerCase();
 
             // Check if the unit matches the search term and selected course
-            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || part.includes(searchTerm) || subject.includes(searchTerm);
+            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || subject.includes(searchTerm);
             const matchesCourse = selectedCourse === "all" || course === selectedCourse;
+            const matchesPart = selectedPart === "all" || course === selectedPart;
 
-            if (matchesSearch && matchesCourse) {
+            if (matchesSearch && matchesCourse && matchesPart) {
                 unit.style.display = 'block'; // Show matching cards
             } else {
                 unit.style.display = 'none'; // Hide non-matching cards

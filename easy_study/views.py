@@ -26,7 +26,7 @@ def test2(request):
             i.subject = Subject.objects.get(id = i.u_subject)
         data['units']=units
     data['courses']= courses
-    data['part']= parts
+    data['parts']= parts
     data['subjects']=subjects
     return render(request, 'test2.html', data)
 def test3(request):
@@ -44,7 +44,7 @@ def test3(request):
             i.subject = Subject.objects.get(id = i.u_subject)
         data['units']=units
     data['courses']= courses
-    data['part']= parts
+    data['parts']= parts
     data['subjects']=subjects
     return render(request, 'test3.html', data)
 def jatmanis1(request):
