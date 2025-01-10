@@ -16,7 +16,7 @@
       <select id="partFilter" class="input-box" >
           <option value="all" selected>All Parts</option>
           {% for part in parts %}
-              <option value="{{ part.p_name }}">{{ part.p_name }}</option>
+              <option value="{{ part.p_name }}">{{ part.p_desc }}</option>
           {% endfor %}
       </select>
    </div>

@@ -1,0 +1,98 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div id="unitsContainer" class="grid-container container-border">
+
+    <!-- Dropdown for Course Filter -->
+     <div class="card1">
+        <form>
+        <select id="courseFilter" class="input-box" >
+            <option value="all" selected>All Courses</option>
+            {% for course in courses %}
+                <option value="{{ course.c_name }}">{{ course.c_name }}</option>
+            {% endfor %}
+        </select>
+     </div>
+     <div class="card1">
+      <select id="partFilter" class="input-box" >
+          <option value="all" selected>All Parts</option>
+          {% for part in parts %}
+              <option value="{{ part.p_name }}">{{ part.p_desc }} </option>
+          {% endfor %}
+      </select>
+   </div>
+   <div class="card1">
+    <select id="subjectFilter" class="input-box" >
+        <option value="all" selected>All Subjects</option>
+        {% for subject in subjects %}
+            <option value="{{ subject.s_name }}">{{ subject.s_name }}</option>
+        {% endfor %}
+    </select>
+ </div>
+    </div>
+    
+
+    <div style="width:100%; display: flex; justify-content: center; align-items: center;">
+        <!-- Live Search Input -->
+        <input type="text" id="searchBox" class="input-box" placeholder="Search by Name, Part or Subject..." style="width: 70%; background-color:rgb(164, 233, 212); text-align:center; border-radius: 30px; border: 1px solid black ;">
+    </div>
+    
+<!-- Units Grid Container -->
+<div id="unitsContainer" class="grid-container">
+    {% for unit in units %}
+        <div onclick="window.location.href='/reader/{{ unit.id }}'" class="card unit" 
+             data-name="{{ unit.u_name }}" data-address="{{ unit.u_desc }}"
+             data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
+             data-part="{{ unit.part.p_name }}">
+             <h5 style="color: rgb(15, 148, 148);"> {{unit.u_name}}</h5>
+             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc}}</small><br>
+             <small>class: {{unit.course.c_name}}-{{unit.part.p_name}}</small>
+             <small>Subject:  {{unit.subject.s_name}}</small>
+             <small>By:  {{unit.u_owner}} </small>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- JavaScript for Live Search and Dropdown Filtering -->
+<script>
+    const searchBox = document.getElementById('searchBox');
+    const courseFilter = document.getElementById('courseFilter');
+    const partFilter = document.getElementById('partFilter');
+    const subjectFilter = document.getElementById('subjectFilter');
+    const units = document.querySelectorAll('.unit');
+
+    // Function to filter cards
+    function filterUnits() {
+        const searchTerm = searchBox.value.toLowerCase(); // Get the search input value
+        const selectedCourse = courseFilter.value; // Get the selected course value
+        const selectedPart = partFilter.value; // Get the selected part value
+        const selectedSubject = subjectFilter.value; // Get the selected part value
+
+        units.forEach(unit => {
+            const name = unit.getAttribute('data-name').toLowerCase();
+            const address = unit.getAttribute('data-address').toLowerCase();
+            const course = unit.getAttribute('data-course').toLowerCase();
+            const part = unit.getAttribute('data-part').toLowerCase();
+            const subject = unit.getAttribute('data-subject').toLowerCase();
+
+            // Check if the unit matches the search term and selected filters
+            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || subject.includes(searchTerm);
+            const matchesCourse = selectedCourse === "all" || course === selectedCourse.toLowerCase();
+            const matchesPart = selectedPart === "all" || part === selectedPart.toLowerCase();
+            const matchesSubject = selectedSubject === "all" || subject === selectedSubject.toLowerCase();
+
+            if (matchesSearch && matchesCourse && matchesPart && matchesSubject) {
+                unit.style.display = 'block'; // Show matching cards
+            } else {
+                unit.style.display = 'none'; // Hide non-matching cards
+            }
+        });
+    }
+
+    // Add event listeners
+    searchBox.addEventListener('input', filterUnits);
+    courseFilter.addEventListener('change', filterUnits);
+    partFilter.addEventListener('change', filterUnits);
+    subjectFilter.addEventListener('change', filterUnits);
+</script>
+{% endblock %}
