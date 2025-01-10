@@ -29,13 +29,13 @@
     </select>
  </div>
     </div>
-     <div class="card1">
-
-    <!-- Live Search Input -->
-        <input type="text" id="searchBox" class=" input-box" placeholder="Search by Name, Address, Part, or Subject..." style="width: 100%;">
     
-     </div>
 
+    <div style="width:100%; display: flex; justify-content: center; align-items: center;">
+        <!-- Live Search Input -->
+        <input type="text" id="searchBox" class="input-box" placeholder="Search by Name, Part or Subject..." style="width: 70%; background-color:rgb(164, 233, 212); text-align:center; border-radius: 30px; border: 1px solid black ;">
+    </div>
+    
 <!-- Units Grid Container -->
 <div id="unitsContainer" class="grid-container">
     {% for unit in units %}
@@ -44,8 +44,8 @@
              data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
              data-part="{{ unit.part.p_name }}">
              <h5 style="color: rgb(15, 148, 148);"> {{unit.u_name}}</h5>
-             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc}}</small><br><br>
-             <small>class: {{unit.course.c_name}} - {{unit.part.p_name}}</small>
+             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc}}</small><br>
+             <small>class: {{unit.course.c_name}}-{{unit.part.p_name}}</small>
              <small>Subject:  {{unit.subject.s_name}}</small>
              <small>By:  {{unit.u_owner}} </small>
         </div>
