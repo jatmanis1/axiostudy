@@ -1,42 +1,67 @@
-<div class="container mt-5">
-    <!-- Include Select2 styles -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-  
-    <!-- Select2 Dropdown -->
-    <select class="form-control" id="searchableDropdown" style="width: 100%;">
-      <option value="" disabled selected>Find Unit</option>
-      {% for i in units %}
-        <option value="{{ i.id }}" data-address="{{ i.u_desc }}">{{ i.u_name }}</option>
-      {% endfor %}
+{% extends 'home.html' %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+    <!-- Dropdown for Course Filter -->
+    <select id="courseFilter" class="form-control mb-4" style="width: 50%; max-width: 300px;">
+        <option value="all" selected>All Courses</option>
+        {% for course in courses %}
+            <option value="{{ course.c_name|lower }}">{{ course.c_name }}</option>
+        {% endfor %}
     </select>
-  </div>
-  
 
-<!-- Include jQuery and Select2 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <!-- Live Search Input -->
+    <form class="form1" method="post" style="width: 50%; max-width: 300px;">
+        <input type="text" id="searchBox" class="form-control mb-4 input-box" placeholder="Search by Name, Address, Part, or Subject..." style="width: 100%;">
+    </form>
+</div>
 
+<!-- Units Grid Container -->
+<div id="unitsContainer" class="grid-container">
+    {% for unit in units %}
+        <div onclick="window.location.href='/reader/{{ unit.id }}'" class="card unit" 
+             data-name="{{ unit.u_name }}" data-address="{{ unit.u_desc }}"
+             data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
+             data-part="{{ unit.part.p_name }}">
+            <h5>{{ unit.u_name }}</h5>
+            <small>{{ unit.u_desc }}</small><br><br>
+            <small>{{ unit.course.c_name }} - {{ unit.part.p_name }} { {{ unit.subject.s_name }} }</small>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- JavaScript for Live Search and Dropdown Filtering -->
 <script>
-  $(document).ready(function () {
-    // Initialize Select2 with a custom matcher function
-    $('#searchableDropdown').select2({
-      placeholder: 'Search by Name or Address...',
-      allowClear: true,
-      matcher: function (params, data) {
-        if ($.trim(params.term) === '') {
-          return data;
-        }
+    const searchBox = document.getElementById('searchBox');
+    const courseFilter = document.getElementById('courseFilter');
+    const units = document.querySelectorAll('.unit');
 
-        const searchTerm = params.term.toLowerCase();
-        const text = data.text.toLowerCase(); // Search in "u_name"
-        const address = $(data.element).data('address')?.toLowerCase(); // Search in "u_address"
+    // Function to filter cards
+    function filterUnits() {
+        const searchTerm = searchBox.value.toLowerCase(); // Get the search input value
+        const selectedCourse = courseFilter.value; // Get the selected course value
 
-        if (text.includes(searchTerm) || (address && address.includes(searchTerm))) {
-          return data;
-        }
+        units.forEach(unit => {
+            const name = unit.getAttribute('data-name').toLowerCase();
+            const address = unit.getAttribute('data-address').toLowerCase();
+            const course = unit.getAttribute('data-course').toLowerCase();
+            const part = unit.getAttribute('data-part').toLowerCase();
+            const subject = unit.getAttribute('data-subject').toLowerCase();
 
-        return null; // Exclude if no match
-      }
-    });
-  });
+            // Check if the unit matches the search term and selected course
+            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || part.includes(searchTerm) || subject.includes(searchTerm);
+            const matchesCourse = selectedCourse === "all" || course === selectedCourse;
+
+            if (matchesSearch && matchesCourse) {
+                unit.style.display = 'block'; // Show matching cards
+            } else {
+                unit.style.display = 'none'; // Hide non-matching cards
+            }
+        });
+    }
+
+    // Add event listeners
+    searchBox.addEventListener('input', filterUnits);
+    courseFilter.addEventListener('change', filterUnits);
 </script>
+{% endblock %}

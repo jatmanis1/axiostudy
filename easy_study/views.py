@@ -14,12 +14,39 @@ def index(request):
 def test2(request):
     courses = Course.objects.all()
     units = Unit.objects.all()
-    return render(request, 'test2.html', {'courses':courses, 'units':units})
+    subjects = Subject.objects.all()
+    parts = Part.objects.all()
+    subject = 1
+    data={}
+    if subject:
+        units = Unit.objects.all()
+        for i in units:
+            i.course = Course.objects.get(id = i.u_course)
+            i.part = Part.objects.get(id = i.u_part)
+            i.subject = Subject.objects.get(id = i.u_subject)
+        data['units']=units
+    data['courses']= courses
+    data['part']= parts
+    data['subjects']=subjects
+    return render(request, 'test2.html', data)
 def test3(request):
     courses = Course.objects.all()
-    
     units = Unit.objects.all()
-    return render(request, 'test3.html', {'courses':courses, 'units':units})
+    subjects = Subject.objects.all()
+    parts = Part.objects.all()
+    subject = 1
+    data={}
+    if subject:
+        units = Unit.objects.all()
+        for i in units:
+            i.course = Course.objects.get(id = i.u_course)
+            i.part = Part.objects.get(id = i.u_part)
+            i.subject = Subject.objects.get(id = i.u_subject)
+        data['units']=units
+    data['courses']= courses
+    data['part']= parts
+    data['subjects']=subjects
+    return render(request, 'test3.html', data)
 def jatmanis1(request):
     custs = models.Cust.objects.all()
     print(custs)

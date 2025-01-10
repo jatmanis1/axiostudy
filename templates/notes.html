@@ -2,9 +2,13 @@
 
 {% block content %}
 
-
-        <input type="text" id="searchBox" class="form-control mb-4 input-box" placeholder="Search by Name or Address..." style="width: 100%;">
-
+        
+<div style="display: flex;
+        justify-content: center;">
+    <form class="form1" method="post">
+        <input type="text" id="searchBox" class="form-control mb-4 input-box " placeholder="Search by Name or Address..." style="width: 100%;">
+        
+    </form></div>
         <!-- Units Grid Container -->
         <div id="unitsContainer" class="grid-container">
             {% for unit in units %}
@@ -40,6 +44,7 @@
             } else {
                 unit.style.display = 'none'; // Hide non-matching cards
             }
+            
         });
     });
 </script>
