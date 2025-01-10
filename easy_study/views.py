@@ -77,7 +77,7 @@ def notes(request):
             i.subject = Subject.objects.get(id = i.u_subject)
         data['units']=units
     data['courses']= courses
-    data['part']= parts
+    data['parts']= parts
     data['subjects']=subjects
     return render(request, 'notes.html', data)
 

@@ -43,9 +43,11 @@
              data-name="{{ unit.u_name }}" data-address="{{ unit.u_desc }}"
              data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
              data-part="{{ unit.part.p_name }}">
-            <h5>{{ unit.u_name }}</h5>
-            <small>{{ unit.u_desc }}</small><br><br>
-            <small>{{ unit.course.c_name }} - {{ unit.part.p_name }} { {{ unit.subject.s_name }} }</small>
+             <h5 style="color: rgb(15, 148, 148);"> {{unit.u_name}}</h5>
+             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc}}</small><br>
+             <small>class: {{unit.course.c_name}}-{{unit.part.p_name}}</small><br>
+             <small>Subject:  {{unit.subject.s_name}}</small>
+             <small>By:  {{unit.u_owner}} </small>
         </div>
     {% endfor %}
 </div>
