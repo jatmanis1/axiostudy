@@ -1,42 +1,153 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<div id="unitsContainer" class="grid-container container-border">
+<style>
+    /* General Aesthetics */
+    .container-border {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
 
+    .input-box {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: border 0.3s;
+    }
+
+    .input-box:focus {
+        border-color: #1a73e8;
+        outline: none;
+        box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+    }
+
+    .card1 {
+        display: inline-block;
+        margin: 10px;
+        width: calc(30% - 20px);
+    }
+
+    .grid-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .card.unit {
+        background: linear-gradient(145deg, #e6f7ff, #ffffff);
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        width: 250px;
+    }
+
+    .card.unit:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .card.unit h5 {
+        font-size: 18px;
+        color: #007BFF;
+        margin-bottom: 8px;
+    }
+
+    .card.unit small {
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    #searchBox {
+        margin-top: 20px;
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 50px;
+        width: 70%;
+        border: 2px solid #ccc;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    #searchBox:focus {
+        border-color: #007BFF;
+        outline: none;
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.2);
+    }
+
+    .filters-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .card1 {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        #searchBox {
+            width: 90%;
+        }
+
+        .grid-container {
+            gap: 15px;
+        }
+    }
+</style>
+
+<div id="filters" class="filters-container container-border">
     <!-- Dropdown for Course Filter -->
-     <div class="card1">
-        <form>
-        <select id="courseFilter" class="input-box" >
+    <div class="card1">
+        <label for="courseFilter">Course</label>
+        <select id="courseFilter" class="input-box">
             <option value="all" selected>All Courses</option>
             {% for course in courses %}
                 <option value="{{ course.c_name }}">{{ course.c_name }}</option>
             {% endfor %}
         </select>
-     </div>
-     <div class="card1">
-      <select id="partFilter" class="input-box" >
-          <option value="all" selected>All Parts</option>
-          {% for part in parts %}
-              <option value="{{ part.p_name }}">{{ part.p_desc }} </option>
-          {% endfor %}
-      </select>
-   </div>
-   <div class="card1">
-    <select id="subjectFilter" class="input-box" >
-        <option value="all" selected>All Subjects</option>
-        {% for subject in subjects %}
-            <option value="{{ subject.s_name }}">{{ subject.s_name }}</option>
-        {% endfor %}
-    </select>
- </div>
     </div>
-    
+    <!-- Dropdown for Part Filter -->
+    <div class="card1">
+        <label for="partFilter">Part</label>
+        <select id="partFilter" class="input-box">
+            <option value="all" selected>All Parts</option>
+            {% for part in parts %}
+                <option value="{{ part.p_name }}">{{ part.p_desc }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <!-- Dropdown for Subject Filter -->
+    <div class="card1">
+        <label for="subjectFilter">Subject</label>
+        <select id="subjectFilter" class="input-box">
+            <option value="all" selected>All Subjects</option>
+            {% for subject in subjects %}
+                <option value="{{ subject.s_name }}">{{ subject.s_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
 
-    <div style="width:100%; display: flex; justify-content: center; align-items: center;">
-        <!-- Live Search Input -->
-        <input type="text" id="searchBox" class="input-box" placeholder="Search by Name, Part or Subject..." style="width: 70%; background-color:rgb(164, 233, 212); text-align:center; border-radius: 30px; border: 1px solid black ;">
-    </div>
-    
+<div style="width:100%; display: flex; justify-content: center; align-items: center;">
+    <!-- Live Search Input -->
+    <input type="text" id="searchBox" class="input-box" placeholder="Search by Name, Part or Subject...">
+</div>
+
 <!-- Units Grid Container -->
 <div id="unitsContainer" class="grid-container">
     {% for unit in units %}
@@ -44,11 +155,11 @@
              data-name="{{ unit.u_name }}" data-address="{{ unit.u_desc }}"
              data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
              data-part="{{ unit.part.p_name }}">
-             <h5 style="color: rgb(15, 148, 148);"> {{unit.u_name}}</h5>
-             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc}}</small><br>
-             <small>class: {{unit.course.c_name}}-{{unit.part.p_name}}</small>
-             <small>Subject:  {{unit.subject.s_name}}</small>
-             <small>By:  {{unit.u_owner}} </small>
+             <h5>{{ unit.u_name|capfirst }}</h5>
+             <small>{{ unit.u_desc | capfirst }}</small><br>
+             <div><small>Class: {{ unit.course.c_name }} - {{ unit.part.p_name }}</small></div>
+             <div><small>Subject: {{ unit.subject.s_name }}</small></div>
+             <small>By: {{ unit.u_owner }}</small>
         </div>
     {% endfor %}
 </div>
@@ -66,7 +177,7 @@
         const searchTerm = searchBox.value.toLowerCase(); // Get the search input value
         const selectedCourse = courseFilter.value; // Get the selected course value
         const selectedPart = partFilter.value; // Get the selected part value
-        const selectedSubject = subjectFilter.value; // Get the selected part value
+        const selectedSubject = subjectFilter.value; // Get the selected subject value
 
         units.forEach(unit => {
             const name = unit.getAttribute('data-name').toLowerCase();
