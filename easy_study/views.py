@@ -6,11 +6,20 @@ import logging
 from users import models
 from users.models import Subject, Unit, Course, Part
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from .decorator import user_verified
+from users.models import UserProfile
+
+
 # from api import active_companies_dict
 #from autoslug import AutoSlugField
 
+@user_verified
 def index(request):
     return render(request, 'index.html')
+def verify(request):
+    return render(request, 'verify.html')
+
 def test2(request):
     courses = Course.objects.all()
     units = Unit.objects.all()
@@ -47,21 +56,18 @@ def test3(request):
     data['parts']= parts
     data['subjects']=subjects
     return render(request, 'test3.html', data)
+@login_required
 def jatmanis1(request):
-    custs = models.Cust.objects.all()
-    print(custs)
     user_id = request.user.id 
     user = User.objects.filter(id =  user_id).first()
-    cust = models.Cust.objects.filter(username = user.username).first()
-    print(user)
-    context = {'cust':cust}
+    print(user.userprofile.is_verified)
     # context['cust']= cust
     # for i in cust:
     #     print(i.name,i.id, i.username, i.password)
-    print(context)
-    return render(request, "jatmanis1.html",context=context)
+    # print(context)
+    return render(request, "jatmanis1.html")
 
-
+@login_required
 def notes(request):
     subject = request.POST.get('subject')
     data = {}
@@ -81,7 +87,8 @@ def notes(request):
     data['subjects']=subjects
     return render(request, 'notes.html', data)
 
-
+@login_required
+@user_verified
 def reader(request,u_id):
     unit = Unit.objects.filter(id = u_id)
     units = Unit.objects.all()

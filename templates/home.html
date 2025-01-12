@@ -231,12 +231,23 @@ td, th {
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
               <!-- Normal Nav Items -->
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <form id="logoutForm" method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+              </form>
+              
+              <a href="#" class="nav-link" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+              
+              </li>
+              {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/signup">Signup</a>
               </li>
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" href="/notes">notes</a>
               </li>

@@ -6,9 +6,11 @@ import logging
 from users import models
 from users.models import Subject, Unit, Course, Part
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
 # from api import active_companies_dict
 #from autoslug import AutoSlugField
-
+@login_required
 def admin(request):
     cust = models.Cust.objects.all()
     data = {}
@@ -17,7 +19,7 @@ def admin(request):
     return render(request, 'admin.html', data)
 
 
-
+@login_required
 def admin_course_edit(request):
     c_id = request.GET.get('c_id')
     print(c_id,'cidwww')
@@ -38,12 +40,14 @@ def admin_course_edit(request):
     data['course']=course
     print(data)
     return render(request, 'admin_course_edit.html',data)
+@login_required
 def admin_course_add(request):
     name = request.POST.get('name')
     desc = request.POST.get('desc')
     if name:
         Course.objects.create(c_name=name, c_desc=desc)
     return render(request, 'admin_course_add.html')
+@login_required
 def admin_course(request):
     # course = get_object_or_404(Course, id=course_id)  # Fetch the course to edit
     courses = Course.objects.all()  # Fetch all courses for the dropdown
@@ -65,6 +69,7 @@ def admin_course(request):
 
 
 # Part
+@login_required
 def admin_part_edit(request,p_id):
     p_id = p_id
     # print(p_id,'cidwww')
@@ -88,12 +93,14 @@ def admin_part_edit(request,p_id):
     data['flag']=flag
     # print(data)
     return render(request, 'admin_part_edit.html',data)
+@login_required
 def admin_part_add(request):
     name = request.POST.get('name')
     desc = request.POST.get('desc')
     if name:
         Part.objects.create(p_name=name, p_desc=desc)
     return render(request, 'admin_part_add.html')
+@login_required
 def admin_part(request):
     # course = get_object_or_404(Course, id=course_id)  # Fetch the course to edit
     parts = Part.objects.all()  # Fetch all courses for the dropdown

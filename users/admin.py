@@ -1,9 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from users.models import Cust,Unit, Subject,Course
-class CustAdmin(admin.ModelAdmin):
-    list_display = ('username', 'name', 'mobile_no', 'email')
+from users.models import Unit, Subject,Course
 
 # admin.site.register(Cust, CustAdmin)
 
@@ -24,7 +22,7 @@ class CourseAdmin(admin.ModelAdmin):
 class UnitAdmin(admin.ModelAdmin):
     list_display = ('u_name', 'u_desc','u_owner','u_link','u_course','u_part', 'u_subject')
 
-admin.site.register(Cust, CustAdmin)
+# admin.site.register(Cust, CustAdmin)
 admin.site.register(Unit, UnitAdmin)
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Course, CourseAdmin)

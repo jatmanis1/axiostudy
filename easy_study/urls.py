@@ -19,12 +19,17 @@ import easy_study.views as es_v
 import easy_study.admin as es_a
 import users.views as users_views
 
+from django.contrib.auth.views import LogoutView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('jatmanis1', es_v.jatmanis1, name= 'jatmanis1'),
     path('', es_v.index, name= '/'),
     path('signup', users_views.register ),
     path('login', users_views.login1 ),
+    path('logout', LogoutView.as_view(), name='logout'),
+    path('verify', es_v.verify, name='verify'),
+    
     path('admin_1', es_a.admin ),
     path('notes', es_v.notes ),
     path('reader/<u_id>', es_v.reader ),
