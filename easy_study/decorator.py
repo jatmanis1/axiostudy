@@ -26,5 +26,5 @@ def user_verified(view_func):
             except user.DoesNotExist:
                 return HttpResponseForbidden("User does not have a valid customer profile. 1")
         else:
-            return redirect('login')  # Redirect to login page if user is not authenticated
+            return redirect('login1')  # Redirect to login page if user is not authenticated
     return _wrapped_view
