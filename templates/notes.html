@@ -43,8 +43,8 @@
              data-name="{{ unit.u_name }}" data-address="{{ unit.u_desc }}"
              data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
              data-part="{{ unit.part.p_name }}">
-             <h5 style="color: rgb(15, 148, 148);"> {{unit.u_name}}</h5>
-             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc}}</small><br>
+             <h5 style="color: rgb(15, 148, 148);"> {{unit.u_name|capfirst }}</h5>
+             <small style="color: rgb(63, 110, 110);"> {{unit.u_desc |capfirst }}</small><br>
              <div><small>class: {{unit.course.c_name}}-{{unit.part.p_name}}</small></div>
              <div><small>Subject:  {{unit.subject.s_name}}</small></div>
              <small>By:  {{unit.u_owner}} </small>
