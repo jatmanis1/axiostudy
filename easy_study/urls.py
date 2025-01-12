@@ -29,7 +29,7 @@ urlpatterns = [
     path('login', users_views.login1 ),
     path('logout', LogoutView.as_view(), name='logout'),
     path('verify', es_v.verify, name='verify'),
-    
+
     path('admin_1', es_a.admin ),
     path('notes', es_v.notes ),
     path('reader/<u_id>', es_v.reader ),

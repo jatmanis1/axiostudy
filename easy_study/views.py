@@ -60,7 +60,9 @@ def test3(request):
 def jatmanis1(request):
     user_id = request.user.id 
     user = User.objects.filter(id =  user_id).first()
-    print(user.userprofile.is_verified)
+    print(user)
+    if not user.is_staff: 
+        print(user.userprofile.is_verified)
     # context['cust']= cust
     # for i in cust:
     #     print(i.name,i.id, i.username, i.password)

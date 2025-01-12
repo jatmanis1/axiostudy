@@ -16,9 +16,10 @@ def user_verified(view_func):
         if request.user.is_authenticated:
             try:
                 # Retrieve the related customer instance
-                print(1)
                 user = request.user
-                if user.userprofile.is_verified:
+                if user.is_staff:
+                    return view_func(request, *args, **kwargs)
+                elif user.userprofile.is_verified:
                     return view_func(request, *args, **kwargs)
                 else:
                     return redirect('verify')  # Redirect to a "not verified" page
