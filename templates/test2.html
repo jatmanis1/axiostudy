@@ -1,112 +1,106 @@
-{% extends 'home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Image Gallery</title>
+    <style>
+        /* Basic styling for the image container */
+        .image-container {
+            display: flex;
+            flex-direction: column; /* Images will be stacked vertically */
+            justify-items: center;
+            padding: 10px;
+            text-align: center;
+            margin: 0 auto; /* Center the container horizontally */
+            max-width: 100%;
+        }
 
-{% block content %}
-<div id="taglineContainer" style="text-align: center; margin: 20px 0;">
-    <h1 style="font-family: 'Arial', sans-serif; color: #007BFF; font-weight: bold;">Welcome to EasyNotes</h1>
-    <p style="font-size: 18px; color: #555;">Your one-stop destination for comprehensive study notes!</p>
-</div>
+        /* Styling for images */
+        .responsive-image {
+            height: auto; /* Maintain aspect ratio */
+            margin: 20px 0; /* Add margin between images */
+            max-width: 100%;
+        }
 
-<div id="filtersContainer" class="grid-container container-border" style="margin-bottom: 20px; padding: 10px;">
-    <!-- Dropdown for Course Filter -->
-    <div class="card1">
-        <select id="courseFilter" class="input-box">
-            <option value="all" selected>All Courses</option>
-            {% for course in courses %}
-                <option value="{{ course.c_name }}">{{ course.c_name }}</option>
-            {% endfor %}
-        </select>
+        /* Button styling */
+        .load-more-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .load-more-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>GitHub Image Gallery</h1>
+
+    <div class="image-container" id="imageContainer">
+        <!-- Images will be loaded here dynamically -->
     </div>
-    <div class="card1">
-        <select id="partFilter" class="input-box">
-            <option value="all" selected>All Parts</option>
-            {% for part in parts %}
-                <option value="{{ part.p_name }}">{{ part.p_desc }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="card1">
-        <select id="subjectFilter" class="input-box">
-            <option value="all" selected>All Subjects</option>
-            {% for subject in subjects %}
-                <option value="{{ subject.s_name }}">{{ subject.s_name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-</div>
 
-<div style="width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-    <!-- Live Search Input -->
-    <input type="text" id="searchBox" class="input-box" placeholder="Search by Name, Part or Subject..." 
-        style="width: 70%; background-color: rgb(240, 248, 255); text-align: center; border-radius: 30px; border: 1px solid #ccc; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);">
-</div>
+    <button class="load-more-btn" id="loadMoreBtn" onclick="loadNextImage()">Load Next Image</button>
 
-<div id="highlightSection" style="margin: 20px 0; text-align: center;">
-    <h2 style="font-family: 'Arial', sans-serif; color: #28a745;">Why Choose EasyNotes?</h2>
-    <p style="color: #666; font-size: 16px; margin: 10px 0;">Comprehensive, well-structured, and easily accessible study notes for every learner!</p>
-</div>
+    <script>
+        const folderUrl = '{{folder_url}}';
+        let imageData = []; // Array to store image URLs
+        let currentIndex = 0; // Track current index for pagination
 
-<!-- Units Grid Container -->
-<div id="unitsContainer" class="grid-container">
-    {% for unit in units %}
-        <div onclick="window.location.href='/reader/{{ unit.id }}'" class="card unit" 
-             data-name="{{ unit.u_name }}" data-address="{{ unit.u_desc }}"
-             data-course="{{ unit.course.c_name }}" data-subject="{{ unit.subject.s_name }}"
-             data-part="{{ unit.part.p_name }}">
-             <h5 style="color: rgb(15, 148, 148);">{{ unit.u_name|capfirst }}</h5>
-             <small style="color: rgb(63, 110, 110);">{{ unit.u_desc |capfirst }}</small><br>
-             <div><small>Class: {{ unit.course.c_name }}-{{ unit.part.p_name }}</small></div>
-             <div><small>Subject: {{ unit.subject.s_name }}</small></div>
-             <small>By: {{ unit.u_owner }}</small>
-        </div>
-    {% endfor %}
-</div>
+        // Fetch the list of files from the GitHub folder
+        fetch(folderUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Fetched Data: ", data); // Check the data being returned
+                // Filter image files from the response
+                imageData = data.filter(item => item.type === 'file' && (item.name.endsWith('.png') || item.name.endsWith('.jpg')));
+                console.log("Filtered Image Data: ", imageData); // Log filtered image data
+                loadNextImage(); // Load the first image on page load
+            })
+            .catch(error => {
+                console.error('Error fetching images:', error);
+            });
 
-<!-- Footer Section -->
-<div id="footer" style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; text-align: center;">
-    <p style="color: #6c757d; font-size: 14px;">&copy; 2025 EasyNotes. All rights reserved.</p>
-    <p style="font-size: 14px; color: #6c757d;">Contact us at <a href="mailto:info@easynotes.com" style="color: #007BFF;">info@easynotes.com</a></p>
-</div>
+        // Function to load the next image
+        function loadNextImage() {
+            if (currentIndex < imageData.length) {
+                const container = document.getElementById('imageContainer');
+                const imgElement = document.createElement('img');
+                imgElement.src = imageData[currentIndex].download_url; // Use the download_url for direct image access
+                imgElement.alt = 'Image ' + (currentIndex + 1);
+                imgElement.classList.add('responsive-image');
 
-<!-- JavaScript for Live Search and Dropdown Filtering -->
-<script>
-    const searchBox = document.getElementById('searchBox');
-    const courseFilter = document.getElementById('courseFilter');
-    const partFilter = document.getElementById('partFilter');
-    const subjectFilter = document.getElementById('subjectFilter');
-    const units = document.querySelectorAll('.unit');
+                // Wait for the image to load to get its natural width
+                imgElement.onload = function() {
+                    // Set the container width to the natural width of the image
+                    const naturalWidth = imgElement.naturalWidth;
+                    const screenWidth = window.innerWidth;
+                    if (naturalWidth< screenWidth){
+                        container.style.width = imgElement.naturalWidth + 'px';
+                    };
+                };
 
-    // Function to filter cards
-    function filterUnits() {
-        const searchTerm = searchBox.value.toLowerCase(); // Get the search input value
-        const selectedCourse = courseFilter.value; // Get the selected course value
-        const selectedPart = partFilter.value; // Get the selected part value
-        const selectedSubject = subjectFilter.value; // Get the selected part value
+                // Append the image to the container
+                container.appendChild(imgElement);
 
-        units.forEach(unit => {
-            const name = unit.getAttribute('data-name').toLowerCase();
-            const address = unit.getAttribute('data-address').toLowerCase();
-            const course = unit.getAttribute('data-course').toLowerCase();
-            const part = unit.getAttribute('data-part').toLowerCase();
-            const subject = unit.getAttribute('data-subject').toLowerCase();
+                // Increment index
+                currentIndex += 1;
 
-            // Check if the unit matches the search term and selected filters
-            const matchesSearch = name.includes(searchTerm) || address.includes(searchTerm) || subject.includes(searchTerm);
-            const matchesCourse = selectedCourse === "all" || course === selectedCourse.toLowerCase();
-            const matchesPart = selectedPart === "all" || part === selectedPart.toLowerCase();
-            const matchesSubject = selectedSubject === "all" || subject === selectedSubject.toLowerCase();
-
-            if (matchesSearch && matchesCourse && matchesPart && matchesSubject) {
-                unit.style.display = 'block'; // Show matching cards
-            } else {
-                unit.style.display = 'none'; // Hide non-matching cards
+                // Hide the "Load More" button if all images have been loaded
+                if (currentIndex === imageData.length) {
+                    document.getElementById('loadMoreBtn').style.display = 'none';
+                }
             }
-        });
-    }
+        }
+    </script>
 
-    // Add event listeners
-    searchBox.addEventListener('input', filterUnits);
-    courseFilter.addEventListener('change', filterUnits);
-    partFilter.addEventListener('change', filterUnits);
-    subjectFilter.addEventListener('change', filterUnits);
-</script>
-{% endblock %}
+</body>
+</html>
