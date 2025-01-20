@@ -109,11 +109,25 @@ def test2(request):
     
     #
     # https://github.com/jatmanis1/notes/blob/main/Accelerator%20nuclear%20physics%20notes%20bsc%20and%20bsc%20bed/page_1.png
-    folder_url= 'https://api.github.com/repos/jatmanis1/notes/contents/B.Sc.%202%20Inorganic%20Chemistry%20Exam%202023%20UNIT%20WISE%20Question'
+    # folder_url= 'https://api.github.com/repos/jatmanis1/notes/contents/B.Sc.%202%20Inorganic%20Chemistry%20Exam%202023%20UNIT%20WISE%20Question'
     # folder_url= 'https://api.github.com/repos/jatmanis1/notes/contents/1%20COMPLEX%20NUMBERS'
-    print(count1(folder_url))
-    images = [f"{folder_url}/page_{i:00d}.png" for i in range(1, count1(folder_url)+1)]  # List of image URLs
-    image = f"{folder_url}/page_1.png"
+    folder_url= 'https://api.github.com/repos/jatmanis1/notes/contents/comp_electrochem-1'
+    print(folder_url)
+    image =f'{folder_url}/page_1.png'
+    try:
+        response = requests.get(image)
+        print(response.status_code)
+        if response.status_code == 200:
+            images = [f"{folder_url}/page_{i:00d}.png" for i in range(1, count1(folder_url)+1)]  # List of image URLs
+            
+            print("URL is valid and accessible.")
+        else:
+            images = [f"{folder_url}/images/page_{i:04d}.png" for i in range(1, count1(f'{folder_url}/images')+1)]  # List of image URLs
+            folder_url = f'{folder_url}/images'
+            print(f"URL is valid but returned status code {response.status_code}.")
+    except requests.exceptions.RequestException as e:
+        print(f"Invalid URL: {e}")
+    # image = f"{folder_url}/page_1.png"
     # print(images)
     # for i in images:
     #     print(i)
@@ -124,6 +138,8 @@ def test2(request):
     data={'images1':images}
     # data["page_obj"]= page_obj
     data['folder_url']=folder_url
+    data['total_page']= count1(folder_url)
+    print(data['total_page'])
     token = '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'
     return render(request, 'test2.html', data)
 
