@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
     path('verify', es_v.verify, name='verify'),
 
-    path('admin_1', es_a.admin ),
+    path('admin_1', es_a.admin, name='login1'),
     path('notes', es_v.notes ),
     path('reader/<u_id>', es_v.reader ),
     path('test2', es_v.test2 ),
