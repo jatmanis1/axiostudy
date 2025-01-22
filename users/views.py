@@ -80,7 +80,7 @@ def login1(request):
             print(request.GET.get('next'))
             messages.success(request, 'Login Sucess')
             if not next_url:
-                return redirect(reverse('jatmanis1'))
+                return redirect(reverse('/'))
             else:
                 return redirect(next_url)
         else:
