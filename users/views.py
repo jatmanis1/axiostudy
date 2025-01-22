@@ -54,7 +54,7 @@ def register(request):
             login(request, user)
 
             messages.success(request, "Your account has been created successfully!")
-            return redirect('login1')  # Redirect to the login page
+            return redirect('/')  # Redirect to the login page
 
     return render(request, 'signup.html')
 
