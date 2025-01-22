@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 #from autoslug import AutoSlugField
 @login_required
 def admin(request):
-    cust = models.Cust.objects.all()
+    cust = models.User.objects.all()
     data = {}
     data['cust']= cust
     print(data)
