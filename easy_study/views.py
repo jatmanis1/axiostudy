@@ -39,7 +39,9 @@ def verify(request):
 #     data['parts']= parts
 #     data['subjects']=subjects
 #     return render(request, 'test2.html', data)
+
 def test3(request):
+    
     courses = Course.objects.all()
     units = Unit.objects.all()
     subjects = Subject.objects.all()
@@ -58,6 +60,7 @@ def test3(request):
     data['subjects']=subjects
     return render(request, 'test3.html', data)
 @login_required
+@user_verified
 def jatmanis1(request):
     user_id = request.user.id 
     user = User.objects.filter(id =  user_id).first()
@@ -71,6 +74,8 @@ def jatmanis1(request):
     return render(request, "jatmanis1.html")
 
 @login_required
+@user_verified
+
 def notes(request):
     subject = request.POST.get('subject')
     data = {}
@@ -101,6 +106,8 @@ def reader(request,u_id):
     return render(request, 'reader.html', data)
     
 
+
+@user_verified
 
 def test2(request, u_id):
     unit = Unit.objects.filter(id = u_id).first()
