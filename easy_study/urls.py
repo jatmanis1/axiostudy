@@ -40,7 +40,7 @@ urlpatterns = [
     # path('pdf', es_v.proxy_pdf),
     
     path('admin_course', es_a.admin_course),
-    path('admin_course_edit', es_a.admin_course_edit, name='admin_course_edit'),
+    path('admin_course_edit/<int:s_id>/', es_a.admin_course_edit, name='admin_course_edit'),
     path('admin_course_add', es_a.admin_course_add, name='admin_course_add'),
     # part 
     path('admin_part', es_a.admin_part),
