@@ -71,8 +71,8 @@ def login1(request):
         # print(next_url)
         # Authenticate the user
         user = authenticate(request, username=username, password=password)
-        
-        print(user)  # Debugging to check if the user is found
+        user1 = User.objects.all() #filter(Q(username=username) | Q(email=username)).first()
+        print(user, user1)  # Debugging to check if the user is found
         
         if user is not None:
             # If the user is authenticated, log them in

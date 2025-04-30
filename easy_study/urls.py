@@ -18,11 +18,16 @@ from django.urls import path
 import easy_study.views as es_v
 import easy_study.admin as es_a
 import users.views as users_views
+from django.urls import path, include
 
 from django.contrib.auth.views import LogoutView
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
+
     path('jatmanis1', es_v.jatmanis1, name= 'jatmanis1'),
     path('', es_v.index, name= '/'),
     path('signup', users_views.register ),
@@ -58,3 +63,7 @@ urlpatterns = [
     path('admin_unit_add', es_a.admin_unit_add, name='admin_unit_add'),
     # path('documents/<str:file_id>/', es_v.stream_gdrive_document, name='stream_gdrive_document'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

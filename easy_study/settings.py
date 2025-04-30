@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure-j-pns$mfj!=_x)789)^*#te6n$a154w@8q7hp&2jsu&n+@f=$u
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'www.jatmanis1.software']
+X_FRAME_OPTIONS = 'ALLOWALL'
 
 
 # Application definition
@@ -41,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'api',
+    'corsheaders',
+
+
     # for gdrive
     # 'api_integration',
     # for photos
@@ -55,11 +60,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     # for photos 
     # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'easy_study.urls'
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -137,3 +146,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login'
 LOGOUT_REDIRECT_URL = '/login'  # Redirect to the login page or homepage after logout
+
+
+
+# Path where media files will be stored (on the server)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL to access media files in the browser
+MEDIA_URL = '/media/'
